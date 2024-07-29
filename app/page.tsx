@@ -1,113 +1,217 @@
 import Image from "next/image";
-
+import { Card, CardContent } from "@/components/ui/card"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import Link from "next/link";
+import { HamburgerMenuIcon, LightningBoltIcon, TimerIcon } from "@radix-ui/react-icons";
+import Panda from "@/public/Designer.jpeg"
+import Logo from "@/components/Logo";
+import Auth from "@/components/Auth";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 export default function Home() {
+  const {userId}=auth()
+  if (userId) {
+    redirect("/dashboard")
+  }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="flex flex-col min-h-[100dvh]">
+    <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+     <Logo/>
+      <nav className="hidden md:flex items-center gap-6">
+        <Link
+          href="#"
+          className="inline-flex items-center justify-center rounded-md bg-primary-foreground border-transparent px-4 py-2 text-sm font-medium text-primary shadow-sm transition-colors hover:bg-primary/90 hover:border-white border-2
+          hover:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          prefetch={false}
+        >
+          <Auth/>
+        </Link>
+      </nav>
+      <button className="md:hidden">
+        <HamburgerMenuIcon className="h-6 w-6" />
+      </button>
+    </header>
+    <main className="flex-1">
+      <section className="bg-primary text-primary-foreground py-12 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-4">
+            <h1 className="text-3xl md:text-5xl font-bold">Effortless Social Media Content Generation</h1>
+            <p className="text-lg md:text-xl">
+              Our AI-powered content generator takes the hassle out of creating engaging social media posts. Boost
+              your online presence with personalized, high-performing content.
+            </p>
+            <Link
+              href="#"
+              className="inline-flex items-center justify-center rounded-md bg-primary-foreground px-4 py-2 text-sm font-medium text-primary shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              prefetch={false}
+            >
+              Sign Up Now
+            </Link>
+          </div>
+          <Image src={Panda} width={600} height={400} alt="AI Content Generator" className="mx-auto" />
         </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      </section>
+      <section id="features" className="py-12 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4 md:px-6 space-y-8">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold">Key Features</h2>
+            <p className="text-muted-foreground text-lg md:text-xl">
+              Discover how our AI-powered content generator can transform your social media strategy.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-background rounded-lg p-6 shadow-sm">
+              <LightningBoltIcon className="h-8 w-8 text-primary" />
+              <h3 className="text-xl font-semibold mt-4">Personalized Content</h3>
+              <p className="text-muted-foreground mt-2">
+                Our AI analyzes your brand, audience, and goals to generate content tailored to your needs.
+              </p>
+            </div>
+            <div className="bg-background rounded-lg p-6 shadow-sm">
+              <LightningBoltIcon className="h-8 w-8 text-primary" />
+              <h3 className="text-xl font-semibold mt-4">Increased Engagement</h3>
+              <p className="text-muted-foreground mt-2">
+                Boost your social media engagement with our high-performing, attention-grabbing content.
+              </p>
+            </div>
+            <div className="bg-background rounded-lg p-6 shadow-sm">
+              <TimerIcon className="h-8 w-8 text-primary" />
+              <h3 className="text-xl font-semibold mt-4">Time-Saving</h3>
+              <p className="text-muted-foreground mt-2">
+                Spend less time creating content and more time connecting with your audience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="examples" className="bg-muted py-12 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4 md:px-6 space-y-8">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold">See Our AI-Generated Content</h2>
+            <p className="text-muted-foreground text-lg md:text-xl">
+              Check out some examples of the high-quality content our platform can produce.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center p-6">
+                <Image src="/placeholder.svg" width={300} height={200} alt="Example Content" className="rounded-lg" />
+                <div className="mt-4 text-center">
+                  <h3 className="text-xl font-semibold">Engaging Instagram Post</h3>
+                  <p className="text-muted-foreground mt-2">
+                    Visually striking and on-brand content to boost your social media presence.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center p-6">
+                <Image src="/placeholder.svg" width={300} height={200} alt="Example Content" className="rounded-lg" />
+                <div className="mt-4 text-center">
+                  <h3 className="text-xl font-semibold">Captivating Twitter Thread</h3>
+                  <p className="text-muted-foreground mt-2">
+                    Engaging, shareable content that drives conversations and interactions.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center p-6">
+                <Image src="/placeholder.svg" width={300} height={200} alt="Example Content" className="rounded-lg" />
+                <div className="mt-4 text-center">
+                  <h3 className="text-xl font-semibold">Attention-Grabbing LinkedIn Post</h3>
+                  <p className="text-muted-foreground mt-2">
+                    Professional, thought-provoking content to showcase your expertise.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+      <section id="testimonials" className="py-12 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4 md:px-6 space-y-8">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold">What Our Customers Say</h2>
+            <p className="text-muted-foreground text-lg md:text-xl">
+              Hear from businesses that have transformed their social media with our AI-powered content generator.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Avatar>
+                    <AvatarImage src="/placeholder-user.jpg" />
+                    <AvatarFallback>SC</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="text-xl font-semibold">Sarah Chen</h3>
+                    <p className="text-muted-foreground">CEO, Acme Corp</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground mt-4">
+                  Using the AI Content Generator has been a game-changer\n for our social media strategy. The
+                  personalized, engaging\n content has helped us connect with our audience and drive\n real results.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Avatar>
+                    <AvatarImage src="/placeholder-user.jpg" />
+                    <AvatarFallback>JD</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="text-xl font-semibold">John Doe</h3>
+                    <p className="text-muted-foreground">Marketing Manager, Widgets Inc</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground mt-4">
+                  The AI Content Generator has saved us so much time and\n effort in creating social media content.
+                  The quality of\n the posts is outstanding, and our engagement has\n skyrocketed.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Avatar>
+                    <AvatarImage src="/placeholder-user.jpg" />
+                    <AvatarFallback>LM</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="text-xl font-semibold">Lisa Martinez</h3>
+                    <p className="text-muted-foreground">Social Media Manager, Acme Inc</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground mt-4">
+                  I am amazed by the quality and effectiveness of the\n content generated by this platform. It is a
+                  {"must-have"} tool\n for any business looking to improve their social media\n presence.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
     </main>
+    <footer className="bg-primary text-primary-foreground py-6 px-4 md:px-6">
+      <div className="container mx-auto flex items-center justify-between">
+        <p className="text-sm">&copy; 2024 AI Content Generator</p>
+        <nav className="flex items-center gap-4">
+          <Link href="#" className="hover:underline" prefetch={false}>
+            Privacy
+          </Link>
+          <Link href="#" className="hover:underline" prefetch={false}>
+            Terms
+          </Link>
+          <Link href="#" className="hover:underline" prefetch={false}>
+            Contact
+          </Link>
+        </nav>
+      </div>
+    </footer>
+  </div>
   );
 }
