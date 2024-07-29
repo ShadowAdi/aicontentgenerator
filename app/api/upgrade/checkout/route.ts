@@ -64,7 +64,7 @@ export async function POST(req: Request) {
       line_items,
       mode: "payment",
       success_url: `https://${process.env.VERCEL_WEB}/dashboard/`,
-      cancel_url: `https://${process.env.VERCEL_WEB}:3000/`,
+      cancel_url: `https://${process.env.VERCEL_WEB}/`,
       metadata: {
         userId: userId,
       },
